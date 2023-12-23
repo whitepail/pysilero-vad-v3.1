@@ -50,11 +50,11 @@ class SileroVoiceActivityDetector:
 
         ort_inputs = {
             "input": audio_array,
-            "h": self._h,
-            "c": self._c,
-            "sr": np.array(_RATE, dtype=np.int64),
+            "h0": self._h,
+            "c0": self._c,
+#            "sr": np.array(_RATE, dtype=np.int64),
         }
         ort_outs = self.session.run(None, ort_inputs)
         out, self._h, self._c = ort_outs
 
-        return out.squeeze()
+        return out.squeeze(2)[:, 1]
